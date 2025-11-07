@@ -25,7 +25,20 @@ public class ModBlockStateProvider extends BlockStateProvider {
         woodBlock((RotatedPillarBlock) ModBlocks.STRIPPED_REDWOOD_WOOD.get(), "stripped_redwood_log");
 
         simpleBlockWithItem(ModBlocks.REDWOOD_PLANKS.get(), cubeAll(ModBlocks.REDWOOD_PLANKS.get()));
-        simpleBlockWithItem(ModBlocks.REDWOOD_LEAVES.get(), cubeAll(ModBlocks.REDWOOD_LEAVES.get()));
+        
+        simpleBlock(ModBlocks.REDWOOD_LEAVES.get(), 
+                models().singleTexture("redwood_leaves", 
+                        mcLoc("block/leaves"), 
+                        "all", 
+                        blockTexture(ModBlocks.REDWOOD_LEAVES.get()))
+                        .renderType("cutout_mipped")
+                        .element()
+                            .from(0, 0, 0).to(16, 16, 16)
+                            .allFaces((direction, faceBuilder) -> faceBuilder
+                                .texture("#all")
+                                .tintindex(0)
+                                .cullface(direction))
+                        .end());
 
         slabBlock(((SlabBlock) ModBlocks.REDWOOD_SLAB.get()), 
                 blockTexture(ModBlocks.REDWOOD_PLANKS.get()), 
