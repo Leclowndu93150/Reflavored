@@ -33,6 +33,10 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BROWN_MUSHROOM = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.parse("minecraft:patch_brown_mushroom"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_RED_MUSHROOM = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.parse("minecraft:patch_red_mushroom"));
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TAIGA_GRASS = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.parse("minecraft:patch_taiga_grass"));
+    
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_DOUGLAS_IRIS = createKey("patch_douglas_iris");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TRILLIUM = createKey("patch_trillium");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_ALPINE_LILY = createKey("patch_alpine_lily");
 
     public static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(RedwoodForest.MODID, name));
@@ -64,6 +68,15 @@ public class ModConfiguredFeatures {
                         )),
                         placedFeatures.getOrThrow(ModPlacedFeatures.REDWOOD_CHECKED)
                 ));
+
+        register(context, PATCH_DOUGLAS_IRIS, Feature.FLOWER,
+                new RandomPatchConfiguration(32, 6, 2, placedFeatures.getOrThrow(ModPlacedFeatures.DOUGLAS_IRIS_PLACED)));
+
+        register(context, PATCH_TRILLIUM, Feature.FLOWER,
+                new RandomPatchConfiguration(48, 6, 2, placedFeatures.getOrThrow(ModPlacedFeatures.TRILLIUM_PLACED)));
+
+        register(context, PATCH_ALPINE_LILY, Feature.FLOWER,
+                new RandomPatchConfiguration(16, 5, 2, placedFeatures.getOrThrow(ModPlacedFeatures.ALPINE_LILY_PLACED)));
     }
 
     private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(

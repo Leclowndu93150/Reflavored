@@ -24,6 +24,13 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> BROWN_MUSHROOM_REDWOOD = createKey("brown_mushroom_redwood");
     public static final ResourceKey<PlacedFeature> RED_MUSHROOM_REDWOOD = createKey("red_mushroom_redwood");
     public static final ResourceKey<PlacedFeature> PATCH_GRASS_REDWOOD = createKey("patch_grass_redwood");
+    
+    public static final ResourceKey<PlacedFeature> DOUGLAS_IRIS_PLACED = createKey("douglas_iris_placed");
+    public static final ResourceKey<PlacedFeature> TRILLIUM_PLACED = createKey("trillium_placed");
+    public static final ResourceKey<PlacedFeature> ALPINE_LILY_PLACED = createKey("alpine_lily_placed");
+    public static final ResourceKey<PlacedFeature> PATCH_DOUGLAS_IRIS = createKey("patch_douglas_iris");
+    public static final ResourceKey<PlacedFeature> PATCH_TRILLIUM = createKey("patch_trillium");
+    public static final ResourceKey<PlacedFeature> PATCH_ALPINE_LILY = createKey("patch_alpine_lily");
 
     public static ResourceKey<PlacedFeature> createKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(RedwoodForest.MODID, name));
@@ -65,6 +72,33 @@ public class ModPlacedFeatures {
                 CountPlacement.of(5),
                 InSquarePlacement.spread(),
                 PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+                BiomeFilter.biome());
+
+        register(context, DOUGLAS_IRIS_PLACED, configuredFeatures.getOrThrow(net.minecraft.data.worldgen.features.VegetationFeatures.PATCH_GRASS),
+                PlacementUtils.filteredByBlockSurvival(ModBlocks.DOUGLAS_IRIS.get()));
+
+        register(context, TRILLIUM_PLACED, configuredFeatures.getOrThrow(net.minecraft.data.worldgen.features.VegetationFeatures.PATCH_GRASS),
+                PlacementUtils.filteredByBlockSurvival(ModBlocks.TRILLIUM.get()));
+
+        register(context, ALPINE_LILY_PLACED, configuredFeatures.getOrThrow(net.minecraft.data.worldgen.features.VegetationFeatures.PATCH_GRASS),
+                PlacementUtils.filteredByBlockSurvival(ModBlocks.ALPINE_LILY.get()));
+
+        register(context, PATCH_DOUGLAS_IRIS, configuredFeatures.getOrThrow(ModConfiguredFeatures.PATCH_DOUGLAS_IRIS),
+                RarityFilter.onAverageOnceEvery(4),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP,
+                BiomeFilter.biome());
+
+        register(context, PATCH_TRILLIUM, configuredFeatures.getOrThrow(ModConfiguredFeatures.PATCH_TRILLIUM),
+                RarityFilter.onAverageOnceEvery(3),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP,
+                BiomeFilter.biome());
+
+        register(context, PATCH_ALPINE_LILY, configuredFeatures.getOrThrow(ModConfiguredFeatures.PATCH_ALPINE_LILY),
+                RarityFilter.onAverageOnceEvery(6),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP,
                 BiomeFilter.biome());
     }
 

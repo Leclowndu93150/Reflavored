@@ -3,6 +3,7 @@ package com.leclowndu93150.reflavored.client;
 import com.leclowndu93150.reflavored.RedwoodForest;
 import com.leclowndu93150.reflavored.client.renderer.ModBoatRenderer;
 import com.leclowndu93150.reflavored.client.renderer.ModChestBoatRenderer;
+import com.leclowndu93150.reflavored.client.renderer.ModFoxRenderer;
 import com.leclowndu93150.reflavored.init.ModBlockEntities;
 import com.leclowndu93150.reflavored.init.ModBlocks;
 import com.leclowndu93150.reflavored.init.ModBoats;
@@ -11,6 +12,7 @@ import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.FoliageColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -34,6 +36,8 @@ public class ClientSetup {
                 context -> new ModBoatRenderer(context, false));
         event.registerEntityRenderer(ModBoats.REDWOOD_CHEST_BOAT.get(),
                 ModChestBoatRenderer::new);
+        
+        event.registerEntityRenderer(EntityType.FOX, ModFoxRenderer::new);
         
         event.registerBlockEntityRenderer(ModBlockEntities.MOD_SIGN.get(), SignRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.MOD_HANGING_SIGN.get(), HangingSignRenderer::new);

@@ -42,6 +42,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         generatedItem(ModItems.REDWOOD_HANGING_SIGN);
         generatedItem(ModItems.REDWOOD_BOAT);
         generatedItem(ModItems.REDWOOD_CHEST_BOAT);
+
+        generatedItem(ModItems.DOUGLAS_IRIS);
+        generatedItem(ModItems.TRILLIUM);
+        generatedItem(ModItems.ALPINE_LILY);
     }
 
     private void blockItem(Block block) {

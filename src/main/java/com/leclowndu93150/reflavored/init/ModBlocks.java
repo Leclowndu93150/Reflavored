@@ -5,6 +5,9 @@ import com.leclowndu93150.reflavored.block.ModCeilingHangingSignBlock;
 import com.leclowndu93150.reflavored.block.ModStandingSignBlock;
 import com.leclowndu93150.reflavored.block.ModWallHangingSignBlock;
 import com.leclowndu93150.reflavored.block.ModWallSignBlock;
+import com.leclowndu93150.reflavored.block.AlpineLilyBlock;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
@@ -71,4 +74,13 @@ public class ModBlocks {
 
     public static final DeferredBlock<SaplingBlock> REDWOOD_SAPLING = BLOCKS.register("redwood_sapling",
             () -> new SaplingBlock(ModTreeGrowers.REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
+
+    public static final DeferredBlock<FlowerBlock> DOUGLAS_IRIS = BLOCKS.register("douglas_iris",
+            () -> new FlowerBlock(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(MobEffects.ABSORPTION.value()), 6.0F, BlockBehaviour.Properties.ofFullCopy(Blocks.POPPY)));
+
+    public static final DeferredBlock<FlowerBlock> TRILLIUM = BLOCKS.register("trillium",
+            () -> new FlowerBlock(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(MobEffects.REGENERATION.value()), 4.0F, BlockBehaviour.Properties.ofFullCopy(Blocks.POPPY)));
+
+    public static final DeferredBlock<AlpineLilyBlock> ALPINE_LILY = BLOCKS.register("alpine_lily",
+            () -> new AlpineLilyBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SUNFLOWER)));
 }

@@ -34,6 +34,9 @@ public class ModCreativeTabs {
                         output.accept(ModItems.REDWOOD_HANGING_SIGN.get());
                         output.accept(ModItems.REDWOOD_LEAVES.get());
                         output.accept(ModItems.REDWOOD_SAPLING.get());
+                        output.accept(ModItems.DOUGLAS_IRIS.get());
+                        output.accept(ModItems.TRILLIUM.get());
+                        output.accept(ModItems.ALPINE_LILY.get());
                         output.accept(ModItems.REDWOOD_BOAT.get());
                         output.accept(ModItems.REDWOOD_CHEST_BOAT.get());
                     })

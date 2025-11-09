@@ -4,6 +4,7 @@
   "package": "com.leclowndu93150.reflavored.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "FoxTypeMixin"
   ],
   "client": [
   ],

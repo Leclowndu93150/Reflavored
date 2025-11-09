@@ -1,6 +1,7 @@
 package com.leclowndu93150.reflavored.datagen;
 
 import com.leclowndu93150.reflavored.init.ModBlocks;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -12,11 +13,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.List;
@@ -60,6 +66,19 @@ public class ModLootTableProvider extends LootTableProvider {
             add(ModBlocks.REDWOOD_WALL_SIGN.get(), block -> createSingleItemTable(ModBlocks.REDWOOD_SIGN.get()));
             add(ModBlocks.REDWOOD_HANGING_SIGN.get(), block -> createSingleItemTable(block));
             add(ModBlocks.REDWOOD_WALL_HANGING_SIGN.get(), block -> createSingleItemTable(ModBlocks.REDWOOD_HANGING_SIGN.get()));
+
+            dropSelf(ModBlocks.DOUGLAS_IRIS.get());
+            dropSelf(ModBlocks.TRILLIUM.get());
+            
+            add(ModBlocks.ALPINE_LILY.get(), block ->
+                    LootTable.lootTable()
+                        .withPool(applyExplosionCondition(block,
+                            LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(block)
+                                    .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                        .setProperties(StatePropertiesPredicate.Builder.properties()
+                                            .hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)))))));
         }
 
         @Override

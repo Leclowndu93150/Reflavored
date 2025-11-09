@@ -66,6 +66,24 @@ public class ModRecipeProvider extends RecipeProvider {
         
         woodenBoat(recipeOutput, ModItems.REDWOOD_BOAT.get(), ModBlocks.REDWOOD_PLANKS.get());
         chestBoat(recipeOutput, ModItems.REDWOOD_CHEST_BOAT.get(), ModItems.REDWOOD_BOAT.get());
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.PURPLE_DYE)
+                .requires(ModBlocks.DOUGLAS_IRIS.get())
+                .group("purple_dye")
+                .unlockedBy("has_flower", has(ModBlocks.DOUGLAS_IRIS.get()))
+                .save(recipeOutput, "purple_dye_from_douglas_iris");
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.WHITE_DYE)
+                .requires(ModBlocks.TRILLIUM.get())
+                .group("white_dye")
+                .unlockedBy("has_flower", has(ModBlocks.TRILLIUM.get()))
+                .save(recipeOutput, "white_dye_from_trillium");
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.ORANGE_DYE)
+                .requires(ModBlocks.ALPINE_LILY.get())
+                .group("orange_dye")
+                .unlockedBy("has_flower", has(ModBlocks.ALPINE_LILY.get()))
+                .save(recipeOutput, "orange_dye_from_alpine_lily");
     }
 
     protected static void fence(RecipeOutput output, ItemLike fence, ItemLike planks) {

@@ -6,6 +6,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
@@ -18,11 +20,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        logBlock((RotatedPillarBlock) ModBlocks.REDWOOD_LOG.get());
-        woodBlock((RotatedPillarBlock) ModBlocks.REDWOOD_WOOD.get(), "redwood_log");
+        logBlock(ModBlocks.REDWOOD_LOG.get());
+        woodBlock(ModBlocks.REDWOOD_WOOD.get(), "redwood_log");
         
-        logBlock((RotatedPillarBlock) ModBlocks.STRIPPED_REDWOOD_LOG.get());
-        woodBlock((RotatedPillarBlock) ModBlocks.STRIPPED_REDWOOD_WOOD.get(), "stripped_redwood_log");
+        logBlock(ModBlocks.STRIPPED_REDWOOD_LOG.get());
+        woodBlock(ModBlocks.STRIPPED_REDWOOD_WOOD.get(), "stripped_redwood_log");
 
         simpleBlockWithItem(ModBlocks.REDWOOD_PLANKS.get(), cubeAll(ModBlocks.REDWOOD_PLANKS.get()));
         
@@ -73,6 +75,24 @@ public class ModBlockStateProvider extends BlockStateProvider {
         hangingSignBlock(ModBlocks.REDWOOD_HANGING_SIGN.get(), 
                 ModBlocks.REDWOOD_WALL_HANGING_SIGN.get(), 
                 blockTexture(ModBlocks.REDWOOD_PLANKS.get()));
+
+        simpleBlock(ModBlocks.DOUGLAS_IRIS.get(),
+                models().cross(blockTexture(ModBlocks.DOUGLAS_IRIS.get()).getPath(),
+                blockTexture(ModBlocks.DOUGLAS_IRIS.get())).renderType("cutout"));
+
+        simpleBlock(ModBlocks.TRILLIUM.get(),
+                models().cross(blockTexture(ModBlocks.TRILLIUM.get()).getPath(),
+                blockTexture(ModBlocks.TRILLIUM.get())).renderType("cutout"));
+
+        getVariantBuilder(ModBlocks.ALPINE_LILY.get())
+                .partialState().with(BlockStateProperties.DOUBLE_BLOCK_HALF,
+                      DoubleBlockHalf.LOWER)
+                .modelForState().modelFile(models().cross("alpine_lily_bottom", 
+                      modLoc("block/alpine_lily_bottom")).renderType("cutout")).addModel()
+                .partialState().with(BlockStateProperties.DOUBLE_BLOCK_HALF, 
+                      DoubleBlockHalf.UPPER)
+                .modelForState().modelFile(models().cross("alpine_lily_top", 
+                      modLoc("block/alpine_lily_top")).renderType("cutout")).addModel();
     }
 
     private void hangingSignBlock(Block signBlock, Block wallSignBlock, ResourceLocation texture) {

@@ -36,4 +36,9 @@ public class ModItems {
 
     public static final DeferredItem<ModBoatItem> REDWOOD_CHEST_BOAT = ITEMS.register("redwood_chest_boat",
             () -> new ModBoatItem(true, new Item.Properties().stacksTo(1)));
+
+    public static final DeferredItem<BlockItem> DOUGLAS_IRIS = ITEMS.registerSimpleBlockItem("douglas_iris", ModBlocks.DOUGLAS_IRIS);
+    public static final DeferredItem<BlockItem> TRILLIUM = ITEMS.registerSimpleBlockItem("trillium", ModBlocks.TRILLIUM);
+    public static final DeferredItem<BlockItem> ALPINE_LILY = ITEMS.register("alpine_lily",
+            () -> new DoubleHighBlockItem(ModBlocks.ALPINE_LILY.get(), new Item.Properties()));
 }

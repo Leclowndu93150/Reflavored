@@ -36,6 +36,10 @@ public class ModLanguageProvider extends LanguageProvider {
         addItem(ModItems.REDWOOD_BOAT, "Redwood Boat");
         addItem(ModItems.REDWOOD_CHEST_BOAT, "Redwood Boat with Chest");
         
+        addBlock(ModBlocks.DOUGLAS_IRIS, "Douglas Iris");
+        addBlock(ModBlocks.TRILLIUM, "Trillium");
+        addBlock(ModBlocks.ALPINE_LILY, "Alpine Lily");
+        
         add("entity.redwood_forest.redwood_boat", "Redwood Boat");
         add("entity.redwood_forest.redwood_chest_boat", "Redwood Boat with Chest");
     }
