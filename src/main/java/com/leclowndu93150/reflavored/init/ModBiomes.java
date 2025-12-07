@@ -24,6 +24,8 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
+
 
 import java.awt.*;
 
@@ -43,11 +45,10 @@ public class ModBiomes {
         context.register(LAVENDER_FIELDS, lavenderFields(placedFeatures, worldCarvers));
     }
 
-    private static Biome redwoodForest(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
-        BiomeGenerationSettings.Builder generationBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
-
-
-
+    private static Biome redwoodForest(HolderGetter<PlacedFeature> placedFeatures,
+                                       HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
+        BiomeGenerationSettings.Builder generationBuilder =
+                new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 
         generationBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.getOrThrow(ModPlacedFeatures.REDWOOD_TREES));
         generationBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.getOrThrow(ModPlacedFeatures.PATCH_DOUGLAS_IRIS));
@@ -56,12 +57,44 @@ public class ModBiomes {
         generationBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.getOrThrow(ModPlacedFeatures.BROWN_MUSHROOM_REDWOOD));
         generationBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.getOrThrow(ModPlacedFeatures.RED_MUSHROOM_REDWOOD));
         generationBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.getOrThrow(ModPlacedFeatures.PATCH_GRASS_REDWOOD));
+        generationBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.getOrThrow(ModPlacedFeatures.GRANITE_ROCK));
+        generationBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.getOrThrow(ModPlacedFeatures.GRANITE_ROCKY_PATCH));
+
+        generationBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, MiscOverworldPlacements.DISK_CLAY);
+        generationBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, MiscOverworldPlacements.DISK_SAND);
+        generationBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, MiscOverworldPlacements.DISK_GRAVEL);
 
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
-        
-        spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 20, 4, 4));
-        spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 10, 2, 10));
-        spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FOX, 40, 2, 4));
+
+        spawnBuilder.addSpawn(MobCategory.CREATURE,
+                new MobSpawnSettings.SpawnerData(EntityType.FOX, 40, 2, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE,
+                new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 40, 2, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE,
+                new MobSpawnSettings.SpawnerData(EntityType.SHEEP, 12, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE,
+                new MobSpawnSettings.SpawnerData(EntityType.WOLF, 8, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE,
+                new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 10, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT,
+                new MobSpawnSettings.SpawnerData(EntityType.SALMON, 15, 1, 5));
+
+        spawnBuilder.addSpawn(MobCategory.MONSTER,
+                new MobSpawnSettings.SpawnerData(EntityType.CREEPER, 100, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.MONSTER,
+                new MobSpawnSettings.SpawnerData(EntityType.SKELETON, 100, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.MONSTER,
+                new MobSpawnSettings.SpawnerData(EntityType.SLIME, 100, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.MONSTER,
+                new MobSpawnSettings.SpawnerData(EntityType.SPIDER, 100, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.MONSTER,
+                new MobSpawnSettings.SpawnerData(EntityType.ZOMBIE, 95, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.MONSTER,
+                new MobSpawnSettings.SpawnerData(EntityType.ENDERMAN, 10, 1, 4));
+        spawnBuilder.addSpawn(MobCategory.MONSTER,
+                new MobSpawnSettings.SpawnerData(EntityType.WITCH, 5, 1, 1));
+        spawnBuilder.addSpawn(MobCategory.MONSTER,
+                new MobSpawnSettings.SpawnerData(EntityType.ZOMBIE_VILLAGER, 5, 1, 1));
 
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(true)
@@ -82,6 +115,7 @@ public class ModBiomes {
                 .build();
     }
 
+
     private static Biome lavenderFields(HolderGetter<PlacedFeature> placedFeatures,
                                         HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
         BiomeGenerationSettings.Builder generationBuilder =
@@ -96,8 +130,12 @@ public class ModBiomes {
         generationBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.getOrThrow(ModPlacedFeatures.LAVENDER_ROCK));
         generationBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.getOrThrow(ModPlacedFeatures.LAVENDER_ROCKY_PATCH));
 
+        generationBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, MiscOverworldPlacements.DISK_CLAY);
+        generationBuilder.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, MiscOverworldPlacements.DISK_GRAVEL);
+
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
-        spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.BEE, 25, 3, 5));
+        spawnBuilder.addSpawn(MobCategory.CREATURE,
+                new MobSpawnSettings.SpawnerData(EntityType.BEE, 25, 3, 5));
 
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(true)
@@ -117,5 +155,6 @@ public class ModBiomes {
                 .generationSettings(generationBuilder.build())
                 .build();
     }
+
 
 }

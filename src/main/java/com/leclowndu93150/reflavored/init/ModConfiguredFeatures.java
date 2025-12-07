@@ -10,7 +10,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.BlockCollisions;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -31,6 +33,7 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import java.util.List;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
+import net.neoforged.fml.common.Mod;
 
 public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> REDWOOD = createKey("redwood");
@@ -50,6 +53,8 @@ public class ModConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> LAVENDER_ROCK = createKey("lavender_rock");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LAVENDER_ROCKY_PATCH = createKey("lavender_rocky_patch");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GRANITE_ROCK = createKey("granite_rock");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GRANITE_ROCKY_PATCH = createKey("granite_rocky_patch");
 
 
     public static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name) {
@@ -58,7 +63,8 @@ public class ModConfiguredFeatures {
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
-        
+
+
         register(context, REDWOOD, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(ModBlocks.REDWOOD_LOG.get()),
                 new StraightTrunkPlacer(5, 2, 1),
@@ -167,26 +173,71 @@ public class ModConfiguredFeatures {
                 )
         );
 
+
+        BlockStateProvider lavenderRocksProvider =
+                new WeightedStateProvider(
+                        SimpleWeightedRandomList.<BlockState>builder()
+                                .add(Blocks.STONE.defaultBlockState(), 3)
+                                .add(Blocks.ANDESITE.defaultBlockState(), 2)
+                                .add(ModBlocks.MOSSY_ANDESITE.get().defaultBlockState(), 2)
+                                .add(ModBlocks.MOSSY_STONE.get().defaultBlockState(), 2)
+                                .build()
+                );
+
+        RuleBasedBlockStateProvider lavenderRocksRuleProvider =
+                new RuleBasedBlockStateProvider(
+                        lavenderRocksProvider,
+                        java.util.List.of()
+                );
+
+
         register(context, LAVENDER_ROCK, Feature.BLOCK_PILE,
                 new BlockPileConfiguration(
-                        BlockStateProvider.simple(Blocks.STONE)
+                        lavenderRocksProvider
                 )
         );
 
-        register(
-                context,
-                LAVENDER_ROCKY_PATCH,
-                Feature.DISK,
+        register(context, LAVENDER_ROCKY_PATCH, Feature.DISK,
                 new DiskConfiguration(
-                        RuleBasedBlockStateProvider.simple(Blocks.STONE),
+                        lavenderRocksRuleProvider,
                         BlockPredicate.matchesBlocks(
-                                List.of(Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.PODZOL, Blocks.COARSE_DIRT, Blocks.MYCELIUM)
+                                java.util.List.of(
+                                        Blocks.DIRT,
+                                        Blocks.GRASS_BLOCK,
+                                        Blocks.PODZOL,
+                                        Blocks.COARSE_DIRT,
+                                        Blocks.MYCELIUM
+                                )
                         ),
                         UniformInt.of(2, 3),
-                        4
+                        2
+                )
+        );
+
+        register(context, GRANITE_ROCK, Feature.BLOCK_PILE,
+                new BlockPileConfiguration(
+                        BlockStateProvider.simple(Blocks.GRANITE)
+                )
+        );
+
+        register(context, GRANITE_ROCKY_PATCH, Feature.DISK,
+                new DiskConfiguration(
+                        RuleBasedBlockStateProvider.simple(Blocks.GRANITE),
+                        BlockPredicate.matchesBlocks(
+                                java.util.List.of(
+                                        Blocks.DIRT,
+                                        Blocks.GRASS_BLOCK,
+                                        Blocks.PODZOL,
+                                        Blocks.COARSE_DIRT,
+                                        Blocks.MYCELIUM
+                                )
+                        ),
+                        UniformInt.of(2, 3),
+                        2
                 )
         );
     }
+
 
     private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(
             BootstrapContext<ConfiguredFeature<?, ?>> context,
